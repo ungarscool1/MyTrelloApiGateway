@@ -12,7 +12,7 @@ app.get('/', (request, response) => {
   response.json({status: 403, message: 'You are not allowed to use this api'})
 })
 app.get('/getToken', (request, response) => {
-  res.redirect('https://trello.com/1/authorize?expiration=never&name='+appName+'&scope=read,write&response_type=token&key='+key);
+  response.redirect('https://trello.com/1/authorize?expiration=never&name='+appName+'&scope=read,write&response_type=token&key='+key);
 })
 app.get('/approuve/:card', (request, response) => {
   response.setHeader('Content-Type', 'application/json');
