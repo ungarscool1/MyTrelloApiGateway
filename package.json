@@ -1,0 +1,14 @@
+{
+  "name": "telloapi",
+  "version": "1.0.0",
+  "description": "This app is an gateway of trello api",
+  "main": "app.js",
+  "scripts": {
+    "test": "node"
+  },
+  "keywords": [
+    "API"
+  ],
+  "author": "Ungarscool1",
+  "license": "ISC"
+}
