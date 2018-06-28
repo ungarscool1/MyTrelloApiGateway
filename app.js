@@ -18,7 +18,7 @@ app.get('/getToken', (request, response) => {
 })
 app.get('/approuve/:card', (request, response) => {
   response.setHeader('Content-Type', 'application/json');
-  var card = request.param('card')
+  var card = request.params.card
   var req = require("request");
 
   var options = { method: 'POST',
@@ -29,7 +29,7 @@ app.get('/approuve/:card', (request, response) => {
 
   req(options, function (error, res, body) {
        if (error) {
-         response.status(503).json({status: 503, message: 'Server internal error, please contact server admin'});
+         response.status(500).json({status: 500, message: 'Server internal error, please contact server admin'});
        } else {
          response.status(response.statusCode).json({status: response.statusCode, message: body})
        }
@@ -37,7 +37,7 @@ app.get('/approuve/:card', (request, response) => {
 })
 app.get('/getLastCard/:list', (request, response) => {
   response.setHeader('Content-Type', 'application/json');
-  var list = request.param('list')
+  var list = request.param.list
   var req = require("request");
   var options = { method: 'GET',
   url: 'https://api.trello.com/1/lists/'+list+'/cards?key='+key+'&token='+token};
@@ -45,7 +45,7 @@ app.get('/getLastCard/:list', (request, response) => {
   req(options, function (error, res, body) {
     if (error) {
       response.status(503);
-      response.json({status: 503, message: 'Server internal error, please contact server admin'});
+      response.json({status: 500, message: 'Server internal error, please contact server admin'});
     } else {
       response.status(200);
       var json = '{"result":true, "return":'+body+'}'
@@ -57,15 +57,15 @@ app.get('/getLastCard/:list', (request, response) => {
 })
 app.get('/getCards/:list', (request, response) => {
   response.setHeader('Content-Type', 'application/json');
-  var list = request.param('list')
+  var list = request.param.list
   var req = require("request");
   var options = { method: 'GET',
   url: 'https://api.trello.com/1/lists/'+list+'/cards?key='+key+'&token='+token};
 
   req(options, function (error, res, body) {
     if (error) {
-      response.status(503);
-      response.json({status: 503, message: 'Server internal error, please contact server admin'});
+      response.status(500);
+      response.json({status: 500, message: 'Server internal error, please contact server admin'});
     } else {
       response.status(200);
       response.send(body)
