@@ -2,12 +2,12 @@ const path = require('path')
 const express = require('express');
 const app = express()
 const appName = 'YOUR_APP_NAME';
-const serverIP = '127.0.0.1'
+const serverURL = '127.0.0.1'
 const serverPORT = 8080
 const token = 'YOUR_OAUTH_TOKEN';
 const key = 'YOUR_API_KEY';
 
-app.listen(serverPORT)
+app.listen(serverPORT, serverURL)
 app.get('/', (request, response) => {
   response.setHeader('Content-Type', 'application/json');
   response.status(403);
