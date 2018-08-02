@@ -16,6 +16,34 @@ app.get('/', (request, response) => {
 app.get('/getToken', (request, response) => {
   response.redirect('https://trello.com/1/authorize?expiration=never&name='+appName+'&scope=read,write&response_type=token&key='+key);
 })
+
+app.get('/create/:list/:title/:desc/:cat', (request,response) => {
+  response.setHeader('Content-Type', 'application/json');
+  var title = request.params.title
+  var descrip = request.params.desc
+  var list = request.params.list
+  var req = require("request");
+
+var options = { method: 'POST',
+  url: 'https://api.trello.com/1/cards?key='+key+'&token='+token,
+  qs:
+   { name: title,
+     desc: descrip,
+     pos: 'bottom',
+     idList: list,
+     keepFromSource: 'all' } };
+
+     req(options, function (error, res, body) {
+       if (error) {
+         response.json({status: 500, message: 'Server internal error, please contact server admin'});
+       } else {
+         response.status(res.statusCode).json({status: res.statusCode, message: body})
+       }
+     });
+
+})
+
+
 app.get('/approuve/:card', (request, response) => {
   response.setHeader('Content-Type', 'application/json');
   var card = request.params.card
